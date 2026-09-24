@@ -80,7 +80,7 @@ ORBPath ORBPathMakeWithCGPath(CGPathRef cgPath) {
     }
     CFRetain(cgPath);
     return ORBPath {
-        reinterpret_cast<ORBPathStorage *>(const_cast<CGPath *>(cgPath)),
+        reinterpret_cast<ORBPathStorage *>(const_cast<CGMutablePathRef>(cgPath)),
         &ORBPathCGPathCallbacks,
     };
 }
@@ -92,7 +92,7 @@ ORBPath ORBPathMakeRect(CGRect rect, const CGAffineTransform *transform) {
 ORBPath ORBPathMakeEllipse(CGRect rect, const CGAffineTransform *transform) {
     CGPathRef cgPath = CGPathCreateWithEllipseInRect(rect, transform);
     ORBPath path = {
-        reinterpret_cast<ORBPathStorage *>(const_cast<CGPath *>(cgPath)),
+        reinterpret_cast<ORBPathStorage *>(const_cast<CGMutablePathRef>(cgPath)),
         &ORBPathCGPathCallbacks,
     };
     return path;
@@ -102,7 +102,7 @@ ORBPath ORBPathMakeRoundedRect(CGRect rect, CGFloat cornerWidth, CGFloat cornerH
     // TODO: Handle ORBRoundedCornerStyleContinuous with custom bezier curves
     CGPathRef cgPath = CGPathCreateWithRoundedRect(rect, cornerWidth, cornerHeight, transform);
     ORBPath path = {
-        reinterpret_cast<ORBPathStorage *>(const_cast<CGPath *>(cgPath)),
+        reinterpret_cast<ORBPathStorage *>(const_cast<CGMutablePathRef>(cgPath)),
         &ORBPathCGPathCallbacks,
     };
     return path;
